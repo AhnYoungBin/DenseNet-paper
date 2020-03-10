@@ -24,5 +24,38 @@ BottleNeck Layer
 ----------------
 <img src="/image/2.JPG" width="80%" height="80%" title="img1" alt="img1"></img>    
 
-ResNet 과 inception 등에서 사용되는 Bottleneck layer 아이디어도 DenseNet에서 사용하였다. 1x1 Convolution layer에서 dimension을 줄여 Feature map의 갯수를 줄였다가 그 뒤 growth rate 만큼의 feature map을 생성하여 c
+ResNet 과 inception 등에서 사용되는 Bottleneck layer 아이디어도 DenseNet에서 사용하였다. 1x1 Convolution layer에서 dimension을 줄여 Feature map의 갯수를 줄였다가 그 뒤 growth rate 만큼의 feature map을 생성하여 computationnal Complexity를 줄일 수 있다. 구조 1x1 Convolution layer을 통해 4* grow rate 만큼의 feature map을 생성하고 3x3 Convolution Layer을 통해 grow rate 개 만큼의 feature map으로 줄여준다. bottleneck layer을 통해 사용하지 않을 때 보다 더 좋은 성능을 보인다.
+
+Transition Layer
+----------------
+
+Transition layer는 feature map의 width, height의 size를 줄여주고 feature map의 개수를 줄여주는 역할을 담당하고 있습니다. 마지막 Dense Block을 제외한 나머지 Dense Block 뒤에 연결이 되며 Batch Normalization, ReLU, 1x1 convolution, 2x2 average pooling 으로 구성이 되어있습니다. 1x1 Convolution Layer를 통해  feature map의 필터 수를 theta(0.5)로 줄여주며 average pooling을 통해 width와 height size 또한 절반으로 줄어든다.
+
+
+Composite function
+------------------
+<img src="/image/3.JPG" width="80%" height="80%" title="img1" alt="img1"></img>    
+
+DenseNet은 ResNet의 구조에 대해 분석한 “Identity mappings in deep residual networks, 2016 ECCV” 논문에서 실험을 통해 제안한 BatchNorm-ReLU-Conv 순서의 pre-activation 구조를 사용하였습니다.
+
+실험내용
+--------
+> ImageNet의 DenseNet Architecture   
+   
+<img src="/image/4.JPG" width="80%" height="80%" title="img1" alt="img1"></img>    
+   
+>Model 별 파라미터 비교  
+   
+<img src="/image/6.JPG" width="80%" height="80%" title="img1" alt="img1"></img>    
+
+cifar &  SVHN Dataset의 error와 파라미터를 비교한 그림이다. k는 network의 grow rate, 최고의 성능은 파란색, "+"는 표준 데이터의 확대를 나타낸다. DenseNets의 모든 결과(C10, C100, SVHN)는 Dropout을 사용하여 얻는다. DenseNets는 ResNet보다 적은 파라미터를 사용하면서 더 낮은 오류율을 달성한다. 데이터 증가 없이 DenseNet은 큰 차이로 더 나은 성능을 발휘한다.
+
+> ImageNet의 DenseNet과 Resnet top1 error 비교   
+   
+<img src="/image/5.JPG" width="80%" height="80%" title="img1" alt="img1"></img>    
+   
+
+Reference
+---------
+<https://hoya012.github.io/blog/DenseNet-Tutorial-1/>   
 
