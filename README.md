@@ -1,5 +1,5 @@
-# Densely Connected Convolutional Networks
-============================================================================
+Densely Connected Convolutional Networks
+=========================================
 논문 링크 : <https://arxiv.org/pdf/1608.06993.pdf> 
 
 
@@ -54,8 +54,4 @@ cifar &  SVHN Dataset의 error와 파라미터를 비교한 그림이다. k는 n
    
 <img src="/image/5.JPG" width="80%" height="80%" title="img1" alt="img1"></img>    
    
-
-Reference
----------
-<https://hoya012.github.io/blog/DenseNet-Tutorial-1/>   
 
